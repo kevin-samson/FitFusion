@@ -1,0 +1,76 @@
+{% extends 'index.html' %} {% block body %}
+
+<section class="hero is-dark is-fullheight">
+  <!-- Form that ask the use how much water he drank -->
+
+  <div class="hero-body">
+    <div class="container">
+      <div class="column is-half is-offset-one-quarter">
+        <div class="box">
+          <h1 class="title has-text-centered has-text-dark">Water Tracker</h1>
+
+          <form method="post" action="" style="margin-top: 30px">
+            <div class="field">
+              {{ form.water.label(class="label") }} {{ form.water(class="input",
+              placeholder="Amount of water drank in ml") }}
+            </div>
+            <div class="field">
+              {{ form.submit(class="button is-success") }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table that shows how much water the user has drank -->
+
+  <div class="hero-body">
+    <div class="container">
+      <div class="column is-half is-offset-one-quarter">
+        <div class="box">
+          <h1 class="title has-text-centered has-text-dark">Water History</h1>
+
+          <table class="table is-fullwidth">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for water in waters %}
+              <tr>
+                <td>{{ water.date }}</td>
+                <td>{{ water.water_ml }}</td>
+                <td>
+                  <form
+                    method="post"
+                    action="/water/delete/{{ water.water_id }}"
+                  >
+                    <div class="field">
+                      {{ form.delete(class="button is-danger") }}
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            <thead>
+              <tr>
+                <th>Total</th>
+                <th>{{ total }}</th>
+              </tr>
+            </thead>
+          </table>
+          <form method="post" action="/water/delete">
+            <div class="field">{{ form.reset(class="button is-danger") }}</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

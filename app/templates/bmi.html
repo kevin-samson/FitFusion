@@ -1,0 +1,33 @@
+{% extends 'index.html' %} {% block body %}
+
+<section class="hero is-dark is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="column is-half is-offset-one-quarter">
+        <div class="box">
+          {% if bmi %}
+          <h1 class="title has-text-centered has-text-dark">{{ bmi }}</h1>
+          {% else %}
+          <h1 class="title has-text-centered has-text-dark">BMI Calculator</h1>
+          {% endif %}
+
+          <form method="post" action="" style="margin-top: 30px">
+            <div class="field">
+              {{ form.height.label(class="label") }} {{
+              form.height(class="input", placeholder=data) }}
+            </div>
+            <div class="field">
+              {{ form.weight.label(class="label") }} {{
+              form.weight(class="input") }}
+            </div>
+            <div class="field">
+              {{ form.submit(class="button is-success") }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

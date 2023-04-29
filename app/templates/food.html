@@ -1,0 +1,76 @@
+{% extends 'index.html' %} {% block body %}
+
+<section class="hero is-dark is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="column is-half is-offset-one-quarter">
+        <div class="box">
+          <!-- Dropdown to select the food. Each dropdown item has food name and amount of calories -->
+          <h1 class="title has-text-centered has-text-dark">Food Tracker</h1>
+          <div class="dropdown">
+            <form style="margin-top: 30px" method="post">
+              <div class="field">
+                {{ form.food.label(class="label") }} {{
+                form.food(class="dropdown-item") }}
+              </div>
+              <div class="field">
+                {{ form.submit(class="button is-success") }}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-body">
+    <div class="container">
+      <div class="column is-half is-offset-one-quarter">
+        <div class="box">
+          <h1 class="title has-text-centered has-text-dark">Food Consumed</h1>
+
+          <table class="table is-fullwidth">
+            <thead>
+              <tr>
+                <th>Food Name</th>
+                <th>Calories</th>
+                <th>Date</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for food in foods %}
+              <tr>
+                <td>{{ food.food_name }}</td>
+                <td>{{ food.food_cal }}</td>
+                <td>{{ food.date }}</td>
+                <td>
+                  <form
+                    method="post"
+                    action="/food/delete/{{food.food_intake_id}}"
+                  >
+                    <div class="field">
+                      {{ form.delete(class="button is-danger") }}
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            <thead>
+              <tr>
+                <th>Total</th>
+                <th>{{ total }}</th>
+              </tr>
+            </thead>
+          </table>
+          <form method="post" action="/food/delete">
+            <div class="field">{{ form.reset(class="button is-danger") }}</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

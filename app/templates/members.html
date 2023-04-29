@@ -1,0 +1,19 @@
+{% extends 'index.html' %} {% block body %}
+
+<section class="hero is-dark is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <a class="button is-success" href="{{ url_for('bmi') }}">
+        <strong>BMI PAGE</strong>
+      </a>
+      <a class="button is-success" href="{{ url_for('water') }}">
+        <strong>Water PAge</strong>
+      </a>
+      <a class="button is-success" href="{{ url_for('food') }}">
+        <strong>Food page</strong>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

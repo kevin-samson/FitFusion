@@ -37,12 +37,9 @@ def loginpage():
         return redirect(url_for("homepage"))
     form = LoginForm(request.form)
     if request.method == "POST" and form.validate():
-        admin = User.query.filter_by(uname="admin").first()
+      
         member = User.query.filter_by(uname=form.uname.data).first()
-        if admin and pwd.check_password_hash(admin.password, form.password.data):
-            login_user(admin)
-            flash("Welcome, %s!" % (form.uname.data), "success")
-            return redirect(url_for("homepage"))
+
         if member and pwd.check_password_hash(member.password, form.password.data):
             login_user(member)
             flash("Welcome, %s!" % (form.uname.data), "success")
@@ -188,3 +185,8 @@ def food_delete_all():
     db.session.commit()
     flash("Your food intake has been deleted.", "success")
     return redirect(url_for("food"))
+
+@app.route("/tracker",methods=['GET','POST'])
+@login_required
+def tracker():
+  return render_template('tracker.html')

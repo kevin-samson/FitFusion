@@ -1,40 +1,154 @@
 {% extends 'index.html' %} {% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Homepage</title>
+    <link rel="stylesheet" href="fontawesome-free-5.15.3-web/css/all.min.css">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='homepage.css') }}">
+</head>
+<body>
+<div class="home">
+    <div class="main-home">
+        <div class="inner-content">
+            <h1> MAKE YOUR BODY <br> <span>BEAUTIFUL</span></h1>
+            <p>We create and give you perfect training</p>
 
-<div class="container" style="margin-top: 20px">
-  <section class="hero is-primary">
-    <div class="hero-body">
-      <h1 class="is-size-1 has-text-weight-bold has-text-dark">
-        <i class="fas fa-angle-double-right"></i>
-        Welcome!
-      </h1>
-    </div>
-  </section>
-  <div class="columns" style="margin-top: 10px">
-    <div class="column is-half">
-      <article class="message is-info">
-        <div class="message-header has-text-dark is-size-3">
-          <p><i class="fas fa-laptop"></i> About The Project</p>
+            <div class="body-btn">
+                <a href="">Get in touch</a>
+            </div>
         </div>
-        <div class="message-body has-text-dark is-size-4">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iste,
-          accusantium voluptas culpa, quia veritatis deleniti veniam explicabo,
-          quam eius amet iusto harum totam nemo beatae! Odio sed rerum sit
-          beatae.
-        </div>
-      </article>
-    </div>
-    <div class="column is-3 is-offset-2" style="margin-top: 127px">
-      <button class="button is-large is-warning">
-        <div>
-          <a href="{{ url_for('signuppage') }}" class="has-text-dark">
-            <i class="fas fa-poll"></i> <strong>Sign Up</strong>
-          </a>
-        </div>
-      </button>
-    </div>
-  </div>
-  
-  </div>
 
-  {% endblock %}
+
+        <div class="inner-content">
+            
+        </div>
+    </div>
 </div>
+
+
+    <div class="welcome">
+        <div class="main-welcome">
+            <div class="inner-content-welcome">
+                <div class="inner-content-welcome-inner">
+                    <h1>welcome to FitFusion</h1>
+                <p class="desc1">the fitness app designed to help you achieve your health and fitness goals! We're excited to have you join our community of fitness enthusiasts who are dedicated to living a healthy lifestyle.</p>
+                <p class="desc">Whether you're looking to lose weight, build muscle, or simply improve your overall health, our app has everything you need to get started on your journey. From customized workout plans to expert advice on nutrition, our platform offers a wide range of resources to help you reach your fitness goals.</p>
+                <p class="desc">So, what are you waiting for? Download FitFusion today and start your journey towards a healthier, happier you! We can't wait to see what you accomplish.</p>
+                <div class="body-btn-welcome">
+                    <a href="">Get in touch</a>
+                </div>
+                </div>
+                
+            </div>
+
+            <div class="inner-content-welcome">
+                <img src="images/welcom image.png" alt="">
+            </div>
+        
+        </div>
+    </div>
+
+
+    <div class="fitness-services">
+        <div class="fitness-heading">
+            <h1>welcome to fitne<span>ss</span></h1>
+            <p>Our staff includes amazing professionals that have an eye for crossfit.</p>
+    
+        </div>
+       
+        <div class="fitness-main-service">
+            <div class="fitness-inner-content">
+                <div class="fitness-images">
+                    <img src="images/welcome images2.png" alt="">
+                </div>
+                <div class="fitness-inner-headings">
+                    <h1>cross fit</h1>
+                    <p>Our staff includes amazing professionals that have an eye for crossfit.</p>
+                <button class="fitness-btn">get in touch</button>
+                </div>
+                
+            </div>
+
+            <div class="fitness-inner-content">
+                <div class="fitness-images">
+                    <img src="images/welcome images2.png" alt="">
+                </div>
+                <div class="fitness-inner-headings">
+                    <h1>cross fit</h1>
+                    <p>Our staff includes amazing professionals that have an eye for crossfit.</p>
+                <button class="fitness-btn">get in touch</button>
+                </div>
+            </div>
+
+            <div class="fitness-inner-content">
+                <div class="fitness-images">
+                    <img src="images/welcom images3.png" alt="">
+                </div>
+                <div class="fitness-inner-headings">
+                    <h1>cross fit</h1>
+                    <p>Our staff includes amazing professionals that have an eye for crossfit.</p>
+                <button class="fitness-btn">get in touch</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="trained">
+        <div class="trained-content">
+            <p>we trained with</p>
+            <h1>personal trainer</h1>
+            <button><a href="">get in touch</a></button>
+        </div>
+    </div>
+
+
+    <div class="fitness-services">
+        <div class="fitness-heading">
+            <h1>Expert <span>trainer</span></h1>
+            <p>Our staff includes amazing professionals that have an eye for crossfit.</p>
+    
+        </div>
+       
+        <div class="fitness-main-service expert-main-use">
+            <div class="fitness-inner-content exper-use">
+                <div class="fitness-images">
+                    <img src="images/expert1.png" alt="">
+                </div>
+                <div class="fitness-inner-headings">
+                    <h1>Sarah Miller</h1>
+                    <p>Our staff includes amazing professionals that have an eye for crossfit.</p>
+                <button class="fitness-btn">get in touch</button>
+                </div>
+                
+            </div>
+
+            <div class="fitness-inner-content exper-use">
+                <div class="fitness-images">
+                    <img src="images/expert2.png" alt="">
+                </div>
+                <div class="fitness-inner-headings">
+                    <h1>jhon doe</h1>
+                    <p>Our staff includes amazing professionals that have an eye for crossfit.</p>
+                <button class="fitness-btn">get in touch</button>
+                </div>
+            </div>
+
+            <div class="fitness-inner-content exper-use">
+                <div class="fitness-images">
+                    <img src="images/expert3.png" alt="">
+                </div>
+                <div class="fitness-inner-headings">
+                    <h1>Sarah jay</h1>
+                    <p>Our staff includes amazing professionals that have an eye for crossfit.</p>
+                <button class="fitness-btn">get in touch</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+{% endblock %}

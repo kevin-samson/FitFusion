@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:kevin@4.tcp.ngrok.io:16959/project"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:kevin@2.tcp.ngrok.io:10675/project"
 db = SQLAlchemy(app)
 
 pwd = Bcrypt(app)

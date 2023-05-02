@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root{
+    --first-color:#000000;
+    --footer-color:#000000;
+    --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    outline: none;
+    text-transform: capitalize;
+    transition: 0.2s;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif
+}
+body{
+    width: 100%;
+}
+
+.header{
+    padding: 1rem 7%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,.6);
+    z-index: 100;
+    width: 100%;
+   
+}
+.header h1{
+    color: white;
+    font-size: 50px;
+}
+.header h1 span{
+    color: var(--first-color);
+}
+/* home design */
+.home{
+    padding: 1rem 7%;
+    background: url(images/kettlebell-g9cc9f83e4_1920.jpg);
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    
+}
+.main-home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.inner-content{
+    flex: 1 1 45rem;
+    flex-wrap: wrap;
+}
+.inner-content h1{
+    margin-top: 130px;
+    color: white;
+    font-size: 50px;
+}
+.inner-content h1 span{
+    color: var(--first-color);
+}
+.inner-content p{
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+}
+.body-btn a{
+    padding: 0.5rem 1.3rem;
+    background-color: var(--first-color);
+    color: white;
+    font-size: 1.5rem;
+    transition: 0.5s;
+    
+}
+.body-btn a:hover{
+    padding: 0.5rem 1.5rem;
+    border-radius: 10px;
+}
+
+/* Welcome css */
+.welcome{
+    padding: 0.5rem 7%;
+    background: #f1f4f6;
+}
+.main-welcome{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.inner-content-welcome{
+    flex: 1 1 45rem;
+    gap: 30px;
+    flex-wrap: wrap;
+   
+}
+.inner-content-welcome h1{
+    color: var(--footer-color);
+    margin-bottom: 30px;
+    font-size: 40px;
+}
+.inner-content-welcome h1 span{
+    color: var(--first-color);
+}
+.inner-content-welcome p{
+   
+    font-size: 18px;
+
+}
+.desc1{
+    color:black;
+    font-weight: bold !important;
+    font-size: 18px;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.desc{
+    margin-bottom: 40px !important;
+    color: #828588;
+    text-align: left;
+}
+.inner-content-welcome h1{
+    margin-top: 30px;
+}
+
+.inner-content-welcome img{
+    width: 90%;
+    text-align: center;
+    align-items: center;
+    margin-left: 55px;
+    margin-top: 100px;
+}
+
+.inner-content-welcome-inner{
+    padding: 0 4rem;
+}
+.body-btn-welcome a{
+    padding: 0.5rem 1.3rem;
+    background-color: var(--first-color);
+    color: white;
+    font-size: 1.5rem;
+    transition: 0.5s;
+}
+.body-btn-welcome a:hover{
+    padding: 0.5rem 1.5rem;
+    border-radius: 10px;
+}
+.fitness-services{
+    padding: 3rem 7%;
+}
+.fitness-heading{
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+.fitness-heading h1{
+    font-size: 45px;
+    margin: 5px 0;
+    margin-bottom: 15px;
+}
+
+.fitness-heading h1{
+    margin-bottom: 15px;
+}
+
+
+.fitness-heading h1 span{
+    color: var(--first-color);
+}
+
+
+
+.fitness-main-service{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    
+}
+.fitness-inner-content{
+    flex: 1 1 300px;
+
+    
+}
+.fitness-images img{
+    width: 100%;
+    transition: 0.5s;
+}
+.fitness-images img:hover{
+    transform: translateY(-10px);
+}
+.fitness-inner-headings{
+    background: #f1f4f6;
+    padding: 3rem;
+}
+.fitness-inner-headings h1{
+    font-size: 25px !important;
+    padding: 0.5rem 0;
+}
+.fitness-inner-headings p{
+    font-size: 1.2rem;
+    padding: 1rem 0;
+}
+.fitness-inner-headings button{
+    padding: 0.8rem 1.3rem;
+    background-color: var(--first-color);
+    color: white;
+    border-radius: 10px;
+    transition: 0.5s;
+    border: none;
+    margin-top: 8px;
+}
+.fitness-inner-headings button:hover{
+    cursor: pointer;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0;
+}
+.trained{
+    padding: 1rem 7%;
+    background: url(images/personal\ trainer.png);
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.trained-content{
+    text-align: center;
+}
+.trained-content p{
+    color: white;
+    font-size: 1.5rem;
+    margin: 15px 0;
+}
+.trained-content h1{
+    color: white;
+    font-size: 40px;
+    margin-bottom: 15px;
+    letter-spacing: 3px;
+}
+.trained-content button{
+    padding: 0.8rem 1.3rem;
+    background-color: var(--first-color);
+    color: white;
+    border-radius: 10px;
+    transition: 0.5s;
+    border: none;
+    margin-top: 8px;
+  
+}
+.trained-content button a{
+    color: white;
+}
+.trained-content button:hover{
+    cursor: pointer;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0;
+}
+.expert-main-use{
+    gap: 80px;
+}
+.exper-use{
+    flex: 1 1 200px;
+    gap: 30px;
+}
+.exper-use img{
+    width: 100%;
+}
+
+.main-bypass{
+    display: flex;
+    
+}
+.bypass-expert{
+    flex: 1 1 45rem;
+    flex-wrap: wrap;
+    
+}
+.bypass-image{
+    width: 100%;
+    position: relative;
+}
+.bypass-image img{
+    width: 100%;
+    height: 100%;
+}
+.mybypasscontent{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+.mybypasscontent p{
+    color: white;
+    letter-spacing: 3px;
+    font-size: 18px;
+}
+.mybypasscontent h1{
+    color: white;
+    font-size: 35px;
+    margin: 10px 0;
+    letter-spacing: 5px;
+}
+.mybypasscontent button{
+    padding: 0.5rem 1.3rem;
+    background-color: var(--first-color);
+    color: white;
+    font-size: 1.5rem;
+    transition: 0.5s;
+    border: none;
+    margin-top: 15px;
+}
+.mybypasscontent button:hover{
+    padding: 0.5rem 1.5rem;
+    border-radius: 10px;
+}
+.mybypasscontent button a{
+    color: white;
+}

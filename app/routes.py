@@ -22,7 +22,7 @@ def signuppage():
     form = RegForm(request.form)
     if request.method == "POST" and form.validate():
         hashed = pwd.generate_password_hash(form.password.data).decode("utf-8")
-        element = User(uname=form.uname.data, email=form.email.data, password=hashed)
+        element = User(uname=form.uname.data, email=form.email.data, password=hashed)  # type: ignore
         db.session.add(element)
         db.session.commit()
         flash("Account created for %s!" % (form.uname.data), "success")
@@ -37,7 +37,6 @@ def loginpage():
         return redirect(url_for("homepage"))
     form = LoginForm(request.form)
     if request.method == "POST" and form.validate():
-      
         member = User.query.filter_by(uname=form.uname.data).first()
 
         if member and pwd.check_password_hash(member.password, form.password.data):
@@ -60,6 +59,36 @@ def logoutpage():
 @app.route("/member-page")
 @login_required
 def member():
+    user_details = UserDetails.query.filter_by(user_id=current_user.id).first()
+    if user_details is None:
+        height = None
+        weight = None
+        bmi = None
+    else:
+        height = user_details.height
+        weight = user_details.weight
+        bmi = user_details.bmi
+
+    water_of_user = WaterIntake.query.filter_by(user_id=current_user.id).all()
+    if water_of_user is None:
+        water = None
+    else:
+        water = 0
+        for waters in water_of_user:
+            water += waters.water_ml
+    foods_of_user = db.session.execute(
+        text(
+            "SELECT * FROM food_intake INNER JOIN food ON food_intake.food_no = food.food_no WHERE user_id = :user_id ORDER BY date DESC"
+        ),
+        {"user_id": current_user.id},  # type: ignore
+    ).fetchall()
+    if foods_of_user is None:
+        total_cal = None
+    else:
+        total_cal = 0
+        for food in foods_of_user:
+            total_cal += food.food_cal
+    print(height, weight, bmi, water, foods_of_user, total_cal)
     return render_template("members.html")
 
 
@@ -186,7 +215,8 @@ def food_delete_all():
     flash("Your food intake has been deleted.", "success")
     return redirect(url_for("food"))
 
-@app.route("/tracker",methods=['GET','POST'])
+
+@app.route("/tracker", methods=["GET", "POST"])
 @login_required
 def tracker():
-  return render_template('tracker.html')
+    return render_template("tracker.html")

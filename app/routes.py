@@ -60,7 +60,36 @@ def logoutpage():
 @app.route("/member-page")
 @login_required
 def member():
-  return render_template("tracker.html")
+  user_details = UserDetails.query.filter_by(user_id=current_user.id).first()
+  if user_details is None:
+      height = 0
+      weight = 0
+      bmi = 0
+  else:
+      height = user_details.height
+      weight = user_details.weight
+      bmi = user_details.bmi
+  
+  water_of_user = WaterIntake.query.filter_by(user_id=current_user.id).all()
+  if water_of_user is None:
+      water = None
+  else:
+      water = 0
+      for waters in water_of_user:
+          water += waters.water_ml
+  foods_of_user = db.session.execute(
+      text(
+          "SELECT * FROM food_intake INNER JOIN food ON food_intake.food_no = food.food_no WHERE user_id = :user_id ORDER BY date DESC"
+      ),
+      {"user_id": current_user.id},  # type: ignore
+  ).fetchall()
+  if foods_of_user is None:
+      total_cal = None
+  else:
+      total_cal = 0
+      for food in foods_of_user:
+          total_cal += food.food_cal
+  return render_template("tracker.html",height=height,weight=weight,water=water,total_cal=total_cal,bmi=bmi)
 
 
 @app.route("/bmi", methods=["GET", "POST"])

@@ -22,7 +22,7 @@ def signuppage():
     form = RegForm(request.form)
     if request.method == "POST" and form.validate():
         hashed = pwd.generate_password_hash(form.password.data).decode("utf-8")
-        element = User(uname=form.uname.data, email=form.email.data, password=hashed)  # type: ignore
+        element = User(uname=form.uname.data, email=form.email.data, password=hashed)
         db.session.add(element)
         db.session.commit()
         flash("Account created for %s!" % (form.uname.data), "success")
@@ -61,9 +61,9 @@ def logoutpage():
 def member():
     user_details = UserDetails.query.filter_by(user_id=current_user.id).first()
     if user_details is None:
-        height = None
-        weight = None
-        bmi = None
+        height = 0
+        weight = 0
+        bmi = 0
     else:
         height = user_details.height
         weight = user_details.weight
@@ -88,8 +88,7 @@ def member():
         total_cal = 0
         for food in foods_of_user:
             total_cal += food.food_cal
-    print(height, weight, bmi, water, foods_of_user, total_cal)
-    return render_template("members.html")
+    return render_template("tracker.html", height=height, weight=weight, water=water, total_cal=total_cal, bmi=bmi)
 
 
 @app.route("/bmi", methods=["GET", "POST"])
@@ -129,7 +128,9 @@ def bmi():
 def water():
     form = WaterForm(request.form)
     # getting all water intake and sort by date
-    waters = WaterIntake.query.filter_by(user_id=current_user.id).order_by(WaterIntake.date.desc()).all()  # type: ignore
+    waters = (
+        WaterIntake.query.filter_by(user_id=current_user.id).order_by(WaterIntake.date.desc()).all()
+    )  # type: ignore
     # finding the sum of water intake
     total = 0
     for water in waters:
@@ -214,9 +215,3 @@ def food_delete_all():
     db.session.commit()
     flash("Your food intake has been deleted.", "success")
     return redirect(url_for("food"))
-
-
-@app.route("/tracker", methods=["GET", "POST"])
-@login_required
-def tracker():
-    return render_template("tracker.html")

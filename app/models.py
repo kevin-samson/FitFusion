@@ -1,6 +1,9 @@
 from datetime import datetime
-from app import db, login_manager
+from flask_sqlalchemy import SQLAlchemy
+from app import login_manager
 from flask_login import UserMixin
+
+db = SQLAlchemy()
 
 
 @login_manager.user_loader
@@ -23,15 +26,6 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return "User(%s , %s)" % (self.uname, self.email)
-
-
-class Exercise(db.Model):
-    ex_no = db.Column(db.Integer, primary_key=True)
-    ex_name = db.Column(db.String(20), nullable=False)
-    ex_cal = db.Column(db.Integer, nullable=False)
-
-    def __repr__(self):
-        return "Exercise(%s , %s)" % (self.ex_name, self.ex_cal)
 
 
 class Food(db.Model):
@@ -64,17 +58,6 @@ class UserDetails(db.Model):
         return "UserDetails(%s , %s , %s)" % (self.user_id, self.height, self.weight)
 
 
-class Points(db.Model):
-    points_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    action = db.Column(db.String(20), nullable=False)
-    points = db.Column(db.Integer, nullable=False)
-    date = db.Column(db.DateTime, default=datetime.now)
-
-    def __repr__(self):
-        return "Points(%s , %s)" % (self.user_id, self.points)
-
-
 class FoodIntake(db.Model):
     food_intake_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
@@ -85,11 +68,40 @@ class FoodIntake(db.Model):
         return "FoodIntake(%s , %s)" % (self.user_id, self.food_name)
 
 
-class ExerciseIntake(db.Model):
-    ex_intake_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    date = db.Column(db.DateTime, default=datetime.now)
-    ex_no = db.Column(db.Integer, db.ForeignKey("exercise.ex_no"), nullable=False)
+class Trainer(db.Model):
+    trainer_id = db.Column(db.Integer, primary_key=True)
+    trainer_name = db.Column(db.String(20), nullable=False)
 
     def __repr__(self):
-        return "ExerciseIntake(%s , %s)" % (self.user_id, self.ex_name)
+        return "Trainer(%s , %s)" % (self.trainer_name, self.trainer_name)
+
+
+class ExerciseCatogory(db.Model):
+    exercise_catogory_id = db.Column(db.Integer, primary_key=True)
+    exercise_catogory_name = db.Column(db.String(20), nullable=False)
+
+    def __repr__(self):
+        return "ExerciseCatogory(%s)" % (self.exercise_catogory_name)
+
+
+class Exercise(db.Model):
+    exercise_id = db.Column(db.Integer, primary_key=True)
+    exercise_name = db.Column(db.String(20), nullable=False)
+    exercise_catogory_id = db.Column(
+        db.Integer, db.ForeignKey("exercise_catogory.exercise_catogory_id"), nullable=False
+    )
+    exercise_cal = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return "Exercise(%s , %s)" % (self.exercise_name, self.exercise_cal)
+
+
+class UserWorkouts(db.Model):
+    workout_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    exercise_id = db.Column(db.Integer, db.ForeignKey("exercise.exercise_id"), nullable=False)
+    trainer_id = db.Column(db.Integer, db.ForeignKey("trainer.trainer_id"), nullable=False)
+    date = db.Column(db.DateTime, default=datetime.now)
+
+    def __repr__(self):
+        return "UserWorkouts(%s , %s , %s)" % (self.user_id, self.exercise_id, self.trainer_id)

@@ -22,7 +22,7 @@ def signuppage():
     form = RegForm(request.form)
     if request.method == "POST" and form.validate():
         hashed = pwd.generate_password_hash(form.password.data).decode("utf-8")
-        element = User(uname=form.uname.data, email=form.email.data, password=hashed)
+        element = User(uname=form.uname.data, email=form.email.data, password=hashed)  # type: ignore
         db.session.add(element)
         db.session.commit()
         flash("Account created for %s!" % (form.uname.data), "success")
@@ -59,7 +59,7 @@ def logoutpage():
 @app.route("/member-page")
 @login_required
 def member():
-    user_details = UserDetails.query.filter_by(user_id=current_user.id).first()
+    user_details = UserDetails.query.filter_by(user_id=current_user.id).first()  # type: ignore
     if user_details is None:
         height = 0
         weight = 0
@@ -69,7 +69,7 @@ def member():
         weight = user_details.weight
         bmi = user_details.bmi
 
-    water_of_user = WaterIntake.query.filter_by(user_id=current_user.id).all()
+    water_of_user = WaterIntake.query.filter_by(user_id=current_user.id).all()  # type: ignore
     if water_of_user is None:
         water = None
     else:
@@ -88,7 +88,23 @@ def member():
         total_cal = 0
         for food in foods_of_user:
             total_cal += food.food_cal
-    return render_template("tracker.html", height=height, weight=weight, water=water, total_cal=total_cal, bmi=bmi)
+    workouts = db.session.execute(
+        text(
+            "select * from user_workouts natural join exercise natural join trainer where user_id = :user_id ORDER BY date DESC"
+        ),
+        {"user_id": current_user.id},  # type: ignore
+    ).fetchall()
+
+    if workouts is None:
+        work = None
+    else:
+        work = 0
+        for workout in workouts:
+            work += workout.exercise_cal
+
+    return render_template(
+        "tracker.html", height=height, weight=weight, water=water, total_cal=total_cal, bmi=bmi, work=work
+    )
 
 
 @app.route("/bmi", methods=["GET", "POST"])
@@ -129,7 +145,7 @@ def water():
     form = WaterForm(request.form)
     # getting all water intake and sort by date
     waters = (
-        WaterIntake.query.filter_by(user_id=current_user.id).order_by(WaterIntake.date.desc()).all()
+        WaterIntake.query.filter_by(user_id=current_user.id).order_by(WaterIntake.date.desc()).all()  # type: ignore
     )  # type: ignore
     # finding the sum of water intake
     total = 0
@@ -215,3 +231,53 @@ def food_delete_all():
     db.session.commit()
     flash("Your food intake has been deleted.", "success")
     return redirect(url_for("food"))
+
+
+@app.route("/workout", methods=["GET", "POST"])
+@login_required
+def workout():
+    form = WorkoutForm(request.form)
+    trainer_all = Trainer.query.all()
+    exercise_all = db.session.execute(
+        text("select * from exercise natural join exercise_catogory"),
+    ).fetchall()
+
+    form.trainers.choices = [(trainer.trainer_id, trainer.trainer_name) for trainer in trainer_all]
+    form.exercises.choices = [
+        (
+            exercise.exercise_id,
+            exercise.exercise_name + " " + str(exercise.exercise_cal) + " " + str(exercise.exercise_catogory_name),
+        )
+        for exercise in exercise_all
+    ]
+
+    workouts = db.session.execute(
+        text(
+            "select * from user_workouts natural join exercise natural join trainer where user_id = :user_id ORDER BY date DESC"
+        ),
+        {"user_id": current_user.id},  # type: ignore
+    ).fetchall()
+
+    if request.method == "POST" and form.validate():
+        trainer_id = form.trainers.data
+        exercise_id = form.exercises.data
+        element = UserWorkouts(user_id=current_user.id, trainer_id=trainer_id, exercise_id=exercise_id)  # type: ignore
+        db.session.add(element)
+        db.session.commit()
+        return redirect(url_for("workout"))
+
+    cal = 0
+    for workout in workouts:
+        cal += workout.exercise_cal
+
+    return render_template("workout.html", form=form, workouts=workouts, cal=cal)  # type: ignore
+
+
+@app.route("/workout/delete/<int:id>", methods=["GET", "POST"])
+@login_required
+def workout_delete(id):
+    workout = UserWorkouts.query.filter_by(workout_id=id).first()
+    db.session.delete(workout)
+    db.session.commit()
+
+    return redirect(url_for("workout"))

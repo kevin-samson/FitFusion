@@ -1,69 +1,246 @@
 {% extends 'index.html' %} {% block body %}
- <div class="h-screen space-y-5 p-10">
-  <div class="flex h-1/4 w-full flex-col items-center rounded-3xl dark:bg-gray-900 justify-around">
-    <h1 class="text-2xl font-bold text-white">Calories Remaining</h1>
-    <h1 class=" text-4xl font-bold text-white">1,930 - 589 + 212 = 1,553</h1>
-    <h5 class=" text-2xl text-white">Goal - Food + Exercise = Remaining</h5>
+<div
+  class="h-screen space-y-5 bg-gradient-to-tl from-white via-red-200 to-blue-100 p-10 md:px-32 md:py-20"
+>
+  <div
+    class="flex h-1/4 w-full flex-col items-center justify-around rounded-3xl shadow-lg bg-white"
+  >
+    <h1 class="text-2xl font-bold">Calories Remaining</h1>
+    <h1 class="text-4xl font-bold">1,930 - 589 + 212 = 1,553</h1>
+    <h5 class="text-2xl">Goal - Food + Exercise = Remaining</h5>
   </div>
 
   <div class="flex h-1/4 w-full space-x-4">
-    <div class="flex h-full w-1/3 flex-col items-center rounded-2xl dark:bg-gray-900 justify-evenly">
-      <h1 class="text-2xl font-bold text-white">Weigth</h1>
-      <h1 class="text-6xl font-bold text-white">{{weight}} kg</h1>
+    <div
+      class="flex h-full w-1/3 flex-row items-center justify-evenly rounded-2xl bg-white shadow-xl text-center truncate"
+    >
+      <div class="flex flex-col items-center space-y-2">
+        <div
+          class="rounded-3xl bg-gradient-to-r from-orange-300 to-rose-300 p-6 shadow-lg"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            class="h-14 w-14"
+          >
+            <path
+              d="M128 176a128 128 0 1 1 256 0 128 128 0 1 1 -256 0zM391.8 64C359.5 24.9 310.7 0 256 0S152.5 24.9 120.2 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H391.8zM296 224c0-10.6-4.1-20.2-10.9-27.4l33.6-78.3c3.5-8.1-.3-17.5-8.4-21s-17.5 .3-21 8.4L255.7 184c-22 .1-39.7 18-39.7 40c0 22.1 17.9 40 40 40s40-17.9 40-40z"
+            />
+          </svg>
+        </div>
+        <h1 class="text-4xl font-bold">{{weight}} KG</h1>
+      </div>
       <a href="{{ url_for('bmi') }}">
-        
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="duration-600  h-6 w-6 text-white transition-all hover:text-gray-300">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-      </svg>
+        <div
+          class="rounded-full bg-gray-200 p-1 shadow-lg hover:scale-110 transition-all duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+            />
+          </svg>
+        </div>
       </a>
     </div>
-    <div class="flex h-full w-1/3 flex-col justify-evenly items-center rounded-2xl dark:bg-gray-900">
-      <h1 class="text-2xl font-bold text-white">Height</h1>
-      <h1 class="text-6xl font-bold text-white">{{height}} cm</h1>
+    <div
+      class="flex h-full w-1/3 flex-row items-center justify-evenly rounded-2xl bg-white shadow-xl text-center truncate"
+    >
+      <div class="flex flex-col items-center space-y-2">
+        <div
+          class="rounded-3xl bg-gradient-to-r from-indigo-300 to-purple-400 p-6 shadow-lg"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            class="h-14 w-14"
+          >
+            <path
+              d="M384 22.545L307.271 99.27l25.458 25.458L366 91.457v329.086l-33.271-33.272-25.458 25.458L384 489.455l76.729-76.726-25.458-25.458L402 420.543V91.457l33.271 33.272L460.73 99.27 384 22.545zm-242.443.258c-23.366 3.035-44.553 30.444-44.553 65.935 0 19.558 6.771 36.856 16.695 48.815l11.84 14.263-18.217 3.424c-12.9 2.425-22.358 9.24-30.443 20.336-8.085 11.097-14.266 26.558-18.598 44.375-7.843 32.28-9.568 71.693-9.842 106.436h42.868l11.771 157.836c29.894 6.748 61.811 6.51 90.602.025l10.414-157.861h40.816c-.027-35.168-.477-75.125-7.584-107.65-3.918-17.933-9.858-33.371-18.04-44.342-8.185-10.97-18.08-17.745-32.563-19.989l-18.592-2.88 11.736-14.704c9.495-11.897 15.932-28.997 15.932-48.082 0-37.838-23.655-65.844-49.399-65.844l-4.843-.093z"
+            />
+          </svg>
+        </div>
+        <h1 class="text-4xl font-bold">{{height}} CM</h1>
+      </div>
       <a href="{{ url_for('bmi') }}">
-        
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="duration-600 h-6 w-6 text-white transition-all hover:text-gray-300">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-      </svg>
+        <div
+          class="rounded-full bg-gray-200 p-1 shadow-lg hover:scale-110 transition-all duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+            />
+          </svg>
+        </div>
       </a>
     </div>
-    <div class="flex h-full w-1/3 flex-col items-center rounded-2xl dark:bg-gray-900 justify-center">
-      <h1 class="text-2xl font-bold text-white">BMI</h1>
-      <h1 class="text-6xl font-bold text-white">{{bmi}}</h1>
+
+    <div
+      class="flex h-full w-1/3 flex-col items-center justify-center rounded-2xl bg-white shadow-xl text-center truncate"
+    >
+      <h1 class="text-2xl font-bold">BMI</h1>
+      <h1 class="text-6xl font-bold">34</h1>
     </div>
   </div>
   <div class="flex h-1/4 space-x-3">
-    <div class="flex w-1/2 flex-col items-center rounded-3xl dark:bg-gray-900 justify-evenly">
-      <h1 class="text-2xl font-bold text-white">Water Consumed</h1>
-      <h1 class="text-6xl font-bold text-white">{{water}}ml</h1>
-      <h1 class="text-2xs pt-1 font-bold text-white">(Target - 2800ml)</h1>
+    <div
+      class="flex h-full w-1/3 flex-row items-center justify-evenly rounded-2xl bg-white shadow-xl text-center truncate"
+    >
+      <div class="flex flex-col items-center space-y-2">
+        <div
+          class="rounded-3xl bg-gradient-to-r from-blue-500 to-blue-600 p-6 shadow-lg"
+        >
+          <svg
+            stroke="currentColor"
+            fill="currentColor"
+            stroke-width="0"
+            viewBox="0 0 512 512"
+            class="w-14 h-14"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M352 146.4c-34.4-48.6-67.5-78.5-90.8-96.6-3.1-2.4-7.3-2.4-10.4-.1-23 17.1-56.1 48.4-90.5 96.5-37.3 52-63 108.4-64.2 170.9 0 1.2-.1 2.5-.1 3.7 0 18.4 3.9 35.9 10.9 52.1 4.1 9.3 9.2 18.1 15.2 26.3 28.5 39 77.8 64.8 133.8 64.8 88.4 0 160.1-64.1 160.1-143.2 0-63.7-27-122.2-64-174.4zm-86 264.3h-.5c-9.9 0-12-14.1-2.6-17.1 45.1-14.2 69.6-38.5 86.4-80.8 3.5-8.9 16.7-6.5 16.8 3.1v1.4c-.1 51.6-44.9 93.4-100.1 93.4z"
+            ></path>
+          </svg>
+        </div>
+        <h1 class="text-4xl font-bold">{{water}} ML</h1>
+      </div>
       <a href="{{ url_for('water') }}">
-        
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="duration-600 h-6 w-6 text-white transition-all hover:text-gray-300">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-      </svg>
+        <div
+          class="rounded-full bg-gray-200 p-1 shadow-lg hover:scale-110 transition-all duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+            />
+          </svg>
+        </div>
       </a>
     </div>
-    <div class="flex w-1/2 flex-col items-center rounded-3xl dark:bg-gray-900 justify-evenly">
-      <h1 class="text-2xl font-bold text-white">Calories Consumed</h1>
-      <h1 class="text-6xl font-bold text-white">{{total_cal}} Kcal</h1>
-      <h1 class="text-2xs pt-1 font-bold text-white">(Target - 1,950 Kcal)</h1>
+    <div
+      class="flex h-full w-1/3 flex-row items-center justify-evenly rounded-2xl bg-white shadow-xl"
+    >
+      <div class="flex flex-col items-center space-y-2">
+        <div
+          class="rounded-3xl bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-yellow-200 via-yellow-300 to-yellow-400 p-6 shadow-lg"
+        >
+          <svg
+            stroke="currentColor"
+            fill="currentColor"
+            stroke-width="0"
+            viewBox="0 0 512 512"
+            class="h-14 w-14"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M368 128h.09m111.46-32h-91.06l8.92-35.66 38.32-13.05c8.15-2.77 13-11.43 10.65-19.71a16 16 0 00-20.54-10.73l-47 16a16 16 0 00-10.36 11.27L355.51 96H224.45c-8.61 0-16 6.62-16.43 15.23A16 16 0 00224 128h2.75l1 8.66A8.3 8.3 0 00236 144c39 0 73.66 10.9 100.12 31.52A121.9 121.9 0 01371 218.07a123.4 123.4 0 0100.12 29.51 7.83 7.83 0 003.29 4.88 72 72 0 0126.38 86.43 7.92 7.92 0 00-.15 5.53A96 96 0 01416 376c0 22.34-7.6 43.63-21.4 59.95a80.12 80.12 0 01-28.78 21.67 8 8 0 00-4.21 4.37 108.19 108.19 0 01-17.37 29.86 2.5 2.5 0 001.9 4.11h49.21a48.22 48.22 0 0047.85-44.14L477.4 128h2.6a16 16 0 0016-16.77c-.42-8.61-7.84-15.23-16.45-15.23z"
+            ></path>
+            <path
+              d="M108.69 320a23.87 23.87 0 0117 7l15.51 15.51a4 4 0 005.66 0L162.34 327a23.87 23.87 0 0117-7h196.58a8 8 0 008.08-7.92V312a40.07 40.07 0 00-32-39.2c-.82-29.69-13-54.54-35.51-72C295.67 184.56 267.85 176 236 176h-72c-68.22 0-114.43 38.77-116 96.8A40.07 40.07 0 0016 312a8 8 0 008 8zm77.25 32a8 8 0 00-5.66 2.34l-22.14 22.15a20 20 0 01-28.28 0l-22.14-22.15a8 8 0 00-5.66-2.34h-69.4a15.93 15.93 0 00-15.76 13.17A65.22 65.22 0 0016 376c0 30.59 21.13 55.51 47.26 56 2.43 15.12 8.31 28.78 17.16 39.47C93.51 487.28 112.54 496 134 496h132c21.46 0 40.49-8.72 53.58-24.55 8.85-10.69 14.73-24.35 17.16-39.47 26.13-.47 47.26-25.39 47.26-56a65.22 65.22 0 00-.9-10.83A15.93 15.93 0 00367.34 352z"
+            ></path>
+          </svg>
+        </div>
+        <h1 class="text-4xl font-bold">{{total_cal}} Kcal</h1>
+      </div>
       <a href="{{ url_for('food') }}">
-        
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="duration-600 h-6 w-6 text-white transition-all hover:text-gray-300">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-      </svg>
+        <div
+          class="rounded-full bg-gray-200 p-1 shadow-lg hover:scale-110 transition-all duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+            />
+          </svg>
+        </div>
+      </a>
+    </div>
+    <div
+      class="flex h-full w-1/3 flex-row items-center justify-evenly rounded-2xl bg-white shadow-xl"
+    >
+      <div class="flex flex-col items-center space-y-2">
+        <div
+          class="rounded-3xl bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-emerald-500 to-lime-600 p-6 shadow-lg"
+        >
+          <svg
+            stroke="currentColor"
+            fill="currentColor"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            class="h-12 w-12"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="17" cy="4" r="2"></circle>
+            <path
+              d="M15.777 10.969a2.007 2.007 0 0 0 2.148.83l3.316-.829-.483-1.94-3.316.829-1.379-2.067a2.01 2.01 0 0 0-1.272-.854l-3.846-.77a1.998 1.998 0 0 0-2.181 1.067l-1.658 3.316 1.789.895 1.658-3.317 1.967.394L7.434 17H3v2h4.434c.698 0 1.355-.372 1.715-.971l1.918-3.196 5.169 1.034 1.816 5.449 1.896-.633-1.815-5.448a2.007 2.007 0 0 0-1.506-1.33l-3.039-.607 1.772-2.954.417.625z"
+            ></path>
+          </svg>
+        </div>
+        <h1 class="text-4xl font-bold">{{work}} Kcal</h1>
+      </div>
+      <a href="{{ url_for('workout') }}">
+        <div
+          class="rounded-full bg-gray-200 p-1 shadow-lg hover:scale-110 transition-all duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+            />
+          </svg>
+        </div>
       </a>
     </div>
   </div>
-  <div class="flex h-1/4 w-full flex-col items-center rounded-3xl dark:bg-gray-900 justify-evenly">
-    <h1 class="text-2xl font-bold text-white">Exercise</h1>
-    <h1 class="text-6xl font-bold text-white">226 Kcal</h1>
-    <h1 class="text-2xs font-bold text-white">(Recent - Running)</h1>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="duration-600 h-6 w-6 text-white transition-all hover:text-gray-300">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-    </svg>
-  </div>
+  <div class="h-10"></div>
+
+  {% endblock %}
 </div>
-<div class="h-10"></div>
-{% endblock %}

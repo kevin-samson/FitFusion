@@ -1,0 +1,63 @@
+{% extends 'index.html' %} {% block body %}
+
+<section>
+  Welcome to workout page
+
+  <!-- Drop down to select the trainer -->
+  <div class="dropdown">
+    <form style="margin-top: 30px" method="post">
+      <div class="field">
+        {{ form.trainers.label(class="label") }} {{
+        form.trainers(class="dropdown-item") }}
+      </div>
+
+      <!-- Drop down to select the exercies  -->
+      <div class="field">
+        {{ form.exercises.label(class="label") }} {{
+        form.exercises(class="dropdown-item") }}
+      </div>
+
+      <div class="field">{{ form.submit(class="button is-success") }}</div>
+    </form>
+
+    <!-- Table to display the workout -->
+    <table class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th>Trainer</th>
+          <th>Exercise</th>
+          <th>Calories</th>
+          <th>Date</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for workout in workouts %}
+        <tr>
+          <td>{{ workout.trainer_name }}</td>
+          <td>{{ workout.exercise_name }}</td>
+          <td>{{ workout.exercise_name }}</td>
+          <td>{{ workout.date }}</td>
+          <td>
+            <form
+              method="post"
+              action="/workout/delete/{{workout.workout_id}}"
+            >
+              <div class="field">
+                {{ form.delete(class="button is-danger") }}
+              </div>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <thead>
+        <tr>
+          <th>Total Calories</th>
+          <th>{{ cal }}</th>
+        </tr>
+      </thead> 
+  </div>
+</section>
+
+{% endblock %}

@@ -68,3 +68,11 @@ class FoodForm(Form):
     submit = SubmitField("Update")
     delete = SubmitField("Delete")
     reset = SubmitField("Reset")
+
+
+class WorkoutForm(Form):
+    exercises = SelectField("Exercises", validate_choice=False, validators=[validators.DataRequired()])
+    trainers = SelectField("Trainer", validate_choice=False, validators=[validators.DataRequired()])
+    submit = SubmitField("Update")
+    delete = SubmitField("Delete")
+    reset = SubmitField("Reset")

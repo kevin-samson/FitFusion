@@ -1,75 +1,155 @@
 {% extends 'index.html' %} {% block body %}
 
-<section class="hero is-dark is-fullheight">
-  <div class="hero-body">
-    <div class="container">
-      <div class="column is-half is-offset-one-quarter">
-        <div class="box">
-          <!-- Dropdown to select the food. Each dropdown item has food name and amount of calories -->
-          <h1 class="title has-text-centered has-text-dark">Food Tracker</h1>
-          <div class="dropdown">
-            <form style="margin-top: 30px" method="post">
-              <div class="field">
-                {{ form.food.label(class="label") }} {{
-                form.food(class="dropdown-item") }}
-              </div>
-              <div class="field">
-                {{ form.submit(class="button is-success") }}
-              </div>
-            </form>
-          </div>
+<section
+  class="flex flex-col md:flex-row h-screen items-center justify-center md:justify-evenly bg-gray-50 space-y-20 bg-gradient-to-r from-rose-100 to-teal-100 dark:bg-white"
+>
+  <div
+    class="dark: flex w-full flex-col items-center rounded-lg bg-white pt-7 shadow dark:border-gray-700 dark:bg-white sm:max-w-md md:mt-0 xl:p-0"
+  >
+    <div
+      class="rounded-full bg-gradient-to-br from-blue-400 to-emerald-400 p-6 shadow-lg"
+    >
+      <svg
+        class="h-10 w-10"
+        stroke="currentColor"
+        fill="currentColor"
+        stroke-width="0"
+        viewBox="0 0 512 512"
+        height="1em"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill="none"
+          stroke-linecap="round"
+          stroke-miterlimit="10"
+          stroke-width="32"
+          d="M322 416c0 35.35-20.65 64-56 64H134c-35.35 0-56-28.65-56-64m258-80c17.67 0 32 17.91 32 40h0c0 22.09-14.33 40-32 40H64c-17.67 0-32-17.91-32-40h0c0-22.09 14.33-40 32-40"
+        ></path>
+        <path
+          fill="none"
+          stroke-linecap="round"
+          stroke-miterlimit="10"
+          stroke-width="32"
+          d="M344 336H179.31a8 8 0 00-5.65 2.34l-26.83 26.83a4 4 0 01-5.66 0l-26.83-26.83a8 8 0 00-5.65-2.34H56a24 24 0 01-24-24h0a24 24 0 0124-24h288a24 24 0 0124 24h0a24 24 0 01-24 24zM64 276v-.22c0-55 45-83.78 100-83.78h72c55 0 100 29 100 84v-.22M241 112l7.44 63.97"
+        ></path>
+        <path
+          fill="none"
+          stroke-linecap="round"
+          stroke-miterlimit="10"
+          stroke-width="32"
+          d="M256 480h139.31a32 32 0 0031.91-29.61L463 112"
+        ></path>
+        <path
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="32"
+          d="M368 112l16-64 47-16"
+        ></path>
+        <path
+          fill="none"
+          stroke-linecap="round"
+          stroke-miterlimit="10"
+          stroke-width="32"
+          d="M224 112h256"
+        ></path>
+      </svg>
+    </div>
+    <div class="space-y-4 p-6 sm:p-8 md:space-y-6">
+      <form class="space-y-4 md:space-y-6" action="#" method="post">
+        <div>
+          {{ form.food.label(class="mb-2 text-center block text-sm font-medium
+          text-black dark:text-black") }} {{ form.food(class="block
+          appearance-none w-full bg-white border border-gray-400
+          hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight
+          focus:outline-none focus:shadow-outline") }}
         </div>
-      </div>
+        {{ form.submit(class="mt-4 bg-primary-600 hover:bg-primary-700
+        focus:ring-primary-300 dark:focus:ring-primary-800 w-full rounded-lg
+        bg-gradient-to-br from-blue-400 to-emerald-400 px-5 py-2.5 text-center
+        text-sm font-medium text-white shadow-lg duration-200 hover:scale-105
+        focus:outline-none focus:ring-4") }}
+      </form>
     </div>
   </div>
-
-  <div class="hero-body">
-    <div class="container">
-      <div class="column is-half is-offset-one-quarter">
-        <div class="box">
-          <h1 class="title has-text-centered has-text-dark">Food Consumed</h1>
-
-          <table class="table is-fullwidth">
-            <thead>
-              <tr>
-                <th>Food Name</th>
-                <th>Calories</th>
-                <th>Date</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for food in foods %}
-              <tr>
-                <td>{{ food.food_name }}</td>
-                <td>{{ food.food_cal }}</td>
-                <td>{{ food.date }}</td>
-                <td>
-                  <form
-                    method="post"
-                    action="/food/delete/{{food.food_intake_id}}"
-                  >
-                    <div class="field">
-                      {{ form.delete(class="button is-danger") }}
-                    </div>
-                  </form>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-            <thead>
-              <tr>
-                <th>Total</th>
-                <th>{{ total }}</th>
-              </tr>
-            </thead>
-          </table>
-          <form method="post" action="/food/delete">
-            <div class="field">{{ form.reset(class="button is-danger") }}</div>
-          </form>
-        </div>
-      </div>
-    </div>
+  <div class="h-1/2 relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-black dark:text-black">
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-white dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">Food</th>
+          <th scope="col" class="px-6 py-3">Calories</th>
+          <th scope="col" class="px-6 py-3">Date</th>
+          <th scope="col" class="px-6 py-3">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-white border-b bg-white dark:border-gray-700"></tr>
+        {% for food in foods %}
+        <tr class="bg-white border-b bg-white dark:border-gray-700">
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
+          >
+            {{ food.food_name }}
+          </th>
+          <td class="px-6 py-4">{{ food.food_cal }} Kcal</td>
+          <td class="px-6 py-4">{{ food.date }}</td>
+          <td class="px-6 py-4">
+            <a
+              href="{{ url_for('food_delete', id=food.food_intake_id) }}"
+              class="text-red-600 hover:text-red-900"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                height="1em"
+                width="1em"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
+          >
+            Total
+          </td>
+          <td class="px-6 py-4"></td>
+          <td
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
+          >
+            {{ total }} Kcal
+          </td>
+        </tr>
+        <!-- Add reset button -->
+        <tr>
+          <td class="px-6 py-4"></td>
+          <td class="px-6 py-4"></td>
+          <td class="px-6 py-4">
+            <a
+              href="{{ url_for('food_delete_all') }}"
+              class="bg-red-500 px-5 py-2 text-white rounded-xl"
+            >
+              Reset
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 

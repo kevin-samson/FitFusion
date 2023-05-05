@@ -51,8 +51,9 @@ class LoginForm(Form):
 
 
 class BmiForm(Form):
-    height = IntegerField("Height", validators=[validators.DataRequired()])
-    weight = IntegerField("Weight", validators=[validators.DataRequired()])
+    height = IntegerField("Height (cm)", validators=[validators.DataRequired()])
+    weight = IntegerField("Weight (kg)", validators=[validators.DataRequired()])
+    goal = IntegerField("Goal ", validators=[validators.DataRequired()])
     submit = SubmitField("Update")
 
 

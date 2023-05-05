@@ -5,12 +5,14 @@
   <div
     class="flex h-1/4 w-full flex-col items-center justify-around rounded-3xl shadow-lg bg-white"
   >
-    <h1 class="text-2xl font-bold">Calories Remaining</h1>
-    <h1 class="text-4xl font-bold">1,930 - 589 + 212 = 1,553</h1>
+    <h1 class="text-2xl font-bold">Reach For Your Goals!!</h1>
+    <h1 class="text-4xl font-bold">
+      {{goal}} - {{total_cal}} + {{work}} = {{goal - total_cal + work}}
+    </h1>
     <h5 class="text-2xl">Goal - Food + Exercise = Remaining</h5>
   </div>
 
-  <div class="flex h-1/4 w-full space-x-4">
+  <div class="flex h-1/3 w-full space-x-4">
     <div
       class="flex h-full w-1/3 flex-row items-center justify-evenly rounded-2xl bg-white shadow-xl text-center truncate"
     >
@@ -96,10 +98,10 @@
       class="flex h-full w-1/3 flex-col items-center justify-center rounded-2xl bg-white shadow-xl text-center truncate"
     >
       <h1 class="text-2xl font-bold">BMI</h1>
-      <h1 class="text-6xl font-bold">34</h1>
+      <h1 class="text-6xl font-bold">{{bmi}}</h1>
     </div>
   </div>
-  <div class="flex h-1/4 space-x-3">
+  <div class="flex h-1/3 space-x-3">
     <div
       class="flex h-full w-1/3 flex-row items-center justify-evenly rounded-2xl bg-white shadow-xl text-center truncate"
     >

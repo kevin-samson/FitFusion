@@ -64,10 +64,12 @@ def member():
         height = 0
         weight = 0
         bmi = 0
+        goal = 2000
     else:
         height = user_details.height
         weight = user_details.weight
         bmi = user_details.bmi
+        goal = user_details.goal
 
     water_of_user = WaterIntake.query.filter_by(user_id=current_user.id).all()  # type: ignore
     if water_of_user is None:
@@ -103,7 +105,7 @@ def member():
             work += workout.exercise_cal
 
     return render_template(
-        "tracker.html", height=height, weight=weight, water=water, total_cal=total_cal, bmi=bmi, work=work
+        "tracker.html", height=height, weight=weight, water=water, total_cal=total_cal, bmi=bmi, work=work, goal=goal
     )
 
 
@@ -116,13 +118,15 @@ def bmi():
     if request.method == "POST" and form.validate():
         height = form.height.data
         weight = form.weight.data
+        goal = form.goal.data
         if data is None:
-            element = UserDetails(user_id=current_user.id, height=height, weight=weight)  # type: ignore
+            element = UserDetails(user_id=current_user.id, height=height, weight=weight, goal=goal)  # type: ignore
             db.session.add(element)
             db.session.commit()
         else:
             data.height = height
             data.weight = weight
+            data.goal = goal
             db.session.commit()
         flash("Your BMI has been updated.", "success")
         return redirect(url_for("bmi"))
@@ -135,6 +139,7 @@ def bmi():
         bmi = data.bmi
         form.height.data = data.height
         form.weight.data = data.weight
+        form.goal.data = data.goal
 
     return render_template("bmi.html", bmi=bmi, form=form)  # type: ignore
 
@@ -182,6 +187,15 @@ def water_delete_all():
     return redirect(url_for("water"))
 
 
+@app.route("/water/<int:ml>", methods=["GET", "POST"])
+@login_required
+def water_add(ml):
+    element = WaterIntake(user_id=current_user.id, water_ml=ml)  # type: ignore
+    db.session.add(element)
+    db.session.commit()
+    return redirect(url_for("water"))
+
+
 @app.route("/food", methods=["GET", "POST"])
 @login_required
 def food():
@@ -195,7 +209,7 @@ def food():
 
     # type: ignore
     form = FoodForm(request.form)
-    form.food.choices = [(food.food_no, food.food_name + " " + str(food.food_cal)) for food in food_list]
+    form.food.choices = [(food.food_no, food.food_name + " - " + str(food.food_cal) + " Kcal") for food in food_list]
 
     if request.method == "POST" and form.validate():
         food_no = form.food.data
@@ -280,4 +294,14 @@ def workout_delete(id):
     db.session.delete(workout)
     db.session.commit()
 
+    return redirect(url_for("workout"))
+
+
+@app.route("/workout/delete", methods=["GET", "POST"])
+@login_required
+def workout_delete_all():
+    workouts = UserWorkouts.query.filter_by(user_id=current_user.id).all()  # type: ignore
+    for workout in workouts:
+        db.session.delete(workout)
+    db.session.commit()
     return redirect(url_for("workout"))

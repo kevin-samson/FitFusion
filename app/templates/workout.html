@@ -1,62 +1,162 @@
 {% extends 'index.html' %} {% block body %}
 
-<section>
-  Welcome to workout page
+<section
+  class="flex flex-col md:flex-row h-screen items-center justify-center md:justify-evenly bg-gray-50 space-y-20 bg-gradient-to-r from-rose-100 to-teal-100 dark:bg-white"
+>
+  <div
+    class="dark: flex w-full flex-col items-center rounded-lg bg-white pt-7 shadow dark:border-gray-700 dark:bg-white sm:max-w-md md:mt-0 xl:p-0"
+  >
+    <div
+      class="rounded-full bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-6 shadow-lg"
+    >
+      <svg
+        class="w-10 h-10"
+        stroke="currentColor"
+        fill="currentColor"
+        stroke-width="0"
+        viewBox="0 0 512 512"
+        height="1em"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M496 176h-58v-64h-76v122H150V112H74v64H16v160h58v64h76V278h212v122h76v-64h58V176z"
+        ></path>
+      </svg>
+    </div>
+    <div class="space-y-4 p-6 sm:p-8 md:space-y-6">
+      <form class="space-y-4 md:space-y-6" action="#" method="post">
+        <div class="flex justify-center">
+          <div class="relative inline-block">
+            {{ form.trainers.label(class="mr-4") }} {{
+            form.trainers(class="block appearance-none w-full bg-white border
+            border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow
+            leading-tight focus:outline-none focus:shadow-outline") }}
 
-  <!-- Drop down to select the trainer -->
-  <div class="dropdown">
-    <form style="margin-top: 30px" method="post">
-      <div class="field">
-        {{ form.trainers.label(class="label") }} {{
-        form.trainers(class="dropdown-item") }}
-      </div>
+            <div
+              class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            >
+              <svg class="fill-current h-4 w-4" viewBox="0 0 20 20">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M3 5a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm2-2a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-8 relative inline-block">
+            {{ form.exercises.label(class="mr-4") }} {{
+            form.exercises(class="block appearance-none w-full bg-white border
+            border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow
+            leading-tight focus:outline-none focus:shadow-outline") }}
 
-      <!-- Drop down to select the exercies  -->
-      <div class="field">
-        {{ form.exercises.label(class="label") }} {{
-        form.exercises(class="dropdown-item") }}
-      </div>
+            <div
+              class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            >
+              <svg class="fill-current h-4 w-4" viewBox="0 0 20 20">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M3 5a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm2-2a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          {{ form.submit(class="flex justify-center mt-4 bg-primary-600
+          hover:bg-primary-700 focus:ring-primary-300
+          dark:focus:ring-primary-800 w-full rounded-lg bg-gradient-to-r
+          from-green-300 via-blue-500 to-purple-600 px-5 py-2.5 text-center
+          text-sm font-medium text-white shadow-lg duration-200 hover:scale-105
+          focus:outline-none focus:ring-4") }}
+        </div>
+      </form>
+    </div>
+  </div>
 
-      <div class="field">{{ form.submit(class="button is-success") }}</div>
-    </form>
-
-    <!-- Table to display the workout -->
-    <table class="table is-fullwidth">
-      <thead>
+  <div class="h-1/2 relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-black dark:text-black">
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-white dark:text-gray-400"
+      >
         <tr>
-          <th>Trainer</th>
-          <th>Exercise</th>
-          <th>Calories</th>
-          <th>Date</th>
-          <th>Delete</th>
+          <th scope="col" class="px-6 py-3">Exercise Name</th>
+          <th scope="col" class="px-6 py-3">Trainer Name</th>
+          <th scope="col" class="px-6 py-3">Exercise Cal</th>
+          <th scope="col" class="px-6 py-3">Date</th>
+          <th scope="col" class="px-6 py-3">Delete</th>
         </tr>
       </thead>
       <tbody>
+        <tr class="bg-white border-b bg-white dark:border-gray-700"></tr>
         {% for workout in workouts %}
-        <tr>
-          <td>{{ workout.trainer_name }}</td>
-          <td>{{ workout.exercise_name }}</td>
-          <td>{{ workout.exercise_name }}</td>
-          <td>{{ workout.date }}</td>
-          <td>
-            <form
-              method="post"
-              action="/workout/delete/{{workout.workout_id}}"
+        <tr class="bg-white border-b bg-white dark:border-gray-700">
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
+          >
+            {{ workout.exercise_name }}
+          </th>
+          <td class="px-6 py-4">{{ workout.trainer_name }}</td>
+          <td class="px-6 py-4">{{ workout.exercise_cal }}</td>
+          <td class="px-6 py-4">{{ workout.date }}</td>
+          <td class="px-6 py-4">
+            <a
+              href="{{ url_for('workout_delete', id=workout.workout_id) }}"
+              class="text-red-600 hover:text-red-900"
             >
-              <div class="field">
-                {{ form.delete(class="button is-danger") }}
-              </div>
-            </form>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                height="1em"
+                width="1em"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </a>
           </td>
         </tr>
         {% endfor %}
-      </tbody>
-      <thead>
         <tr>
-          <th>Total Calories</th>
-          <th>{{ cal }}</th>
+          <td
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
+          >
+            Total
+          </td>
+          <td class="px-6 py-4"></td>
+          <td
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
+          >
+            {{ total }} Kcal
+          </td>
         </tr>
-      </thead> 
+        <!-- Add reset button -->
+        <tr>
+          <td class="px-6 py-4"></td>
+          <td class="px-6 py-4"></td>
+          <td class="px-6 py-4">
+            <a
+              href="{{ url_for('workout_delete_all') }}"
+              class="bg-red-500 px-5 py-2 text-white rounded-xl"
+            >
+              Reset
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 

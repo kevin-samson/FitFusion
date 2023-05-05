@@ -53,6 +53,7 @@ class UserDetails(db.Model):
     weight = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime, default=datetime.now)
     bmi = db.Column(db.Float, nullable=True)
+    goal = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         return "UserDetails(%s , %s , %s)" % (self.user_id, self.height, self.weight)
